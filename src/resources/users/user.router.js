@@ -10,7 +10,16 @@ router.route('/').get(async (req, res) => {
 
 router.route('/:id').get(async (req, res) => {
   const user = await usersService.get(req.params.id);
-  res.json(User.toResponse(user));
+  if (user) {
+    res.json(User.toResponse(user));
+  } else {
+    res.status(404).send('User not found');
+  }
 });
+
+// router.route('/').post(async (req, res) => {
+// const user = await usersService.create(req.body.);
+// res.json();
+// });
 
 module.exports = router;
